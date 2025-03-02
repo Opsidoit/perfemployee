@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { FileText, FileEdit, User, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -25,6 +26,14 @@ const SidebarItem = ({ icon, label, to, active = false }: SidebarItemProps) => {
 };
 
 const DashboardLayout = () => {
+  const location = useLocation();
+  const { signOut, user } = useAuth();
+
+  const handleSignOut = (e: React.MouseEvent) => {
+    e.preventDefault();
+    signOut();
+  };
+
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
@@ -47,11 +56,13 @@ const DashboardLayout = () => {
                 icon={<FileText className="h-5 w-5" />}
                 label="Curriculum Vitae"
                 to="/dashboard/cv"
+                active={location.pathname.includes("/dashboard/cv")}
               />
               <SidebarItem
                 icon={<FileEdit className="h-5 w-5" />}
                 label="Cover Letter"
                 to="/dashboard/cover-letter"
+                active={location.pathname.includes("/dashboard/cover-letter")}
               />
             </div>
           </div>
@@ -65,22 +76,26 @@ const DashboardLayout = () => {
                 icon={<User className="h-5 w-5" />}
                 label="Profile"
                 to="/dashboard/profile"
+                active={location.pathname === "/dashboard/profile"}
               />
               <SidebarItem
                 icon={<Settings className="h-5 w-5" />}
                 label="Settings"
                 to="/dashboard/settings"
+                active={location.pathname === "/dashboard/settings"}
               />
             </div>
           </div>
         </div>
 
         <div className="absolute bottom-4 w-52">
-          <Button variant="outline" className="w-full justify-start" asChild>
-            <Link to="/">
-              <LogOut className="h-5 w-5 mr-2" />
-              Sign Out
-            </Link>
+          <Button
+            variant="outline"
+            className="w-full justify-start"
+            onClick={handleSignOut}
+          >
+            <LogOut className="h-5 w-5 mr-2" />
+            Sign Out
           </Button>
         </div>
       </div>
@@ -106,13 +121,13 @@ const DashboardLayout = () => {
             <User className="h-5 w-5" />
             <span className="text-xs">Profile</span>
           </Link>
-          <Link
-            to="/dashboard/settings"
+          <button
+            onClick={handleSignOut}
             className="flex flex-col items-center p-2"
           >
-            <Settings className="h-5 w-5" />
-            <span className="text-xs">Settings</span>
-          </Link>
+            <LogOut className="h-5 w-5" />
+            <span className="text-xs">Sign Out</span>
+          </button>
         </div>
       </div>
 
