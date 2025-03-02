@@ -69,8 +69,10 @@ const HeroSection = ({
               <div className="h-4 w-2/3 bg-gray-100 rounded"></div>
 
               {/* HIRED Stamp */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-30deg] border-4 border-red-600 rounded-lg px-4 py-2">
-                <span className="text-red-600 font-bold text-2xl">HIRED</span>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-30deg] border-4 border-blue-300 rounded-lg px-4 py-2 bg-blue-100">
+                <span className="text-blue-500 font-bold text-2xl">
+                  Hired !
+                </span>
               </div>
             </div>
           </div>

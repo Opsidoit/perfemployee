@@ -38,8 +38,8 @@ const Navbar = ({ transparent = true }: NavbarProps) => {
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <span className="text-xl font-bold text-primary">
-            CV & Cover Letter AI
+          <span className="flex my-1 px-1 py-1.5 justify-center items-end text-[#9fd4ec] via-[0%] via-inherit from-[67%] from-[#353ec8] font-extrabold text-4xl leading-10 text-right tracking-wide font-sans container bg-[#NaNNaNNaN] bg-[#NaNNaNNaN] opacity-100 bg-inherit">
+            Perfemployee
           </span>
         </Link>
 

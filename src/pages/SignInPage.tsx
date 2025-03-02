@@ -56,8 +56,8 @@ const SignInPage = () => {
               Forgot password?
             </Button>
           </div>
-          <Button className="w-full" type="submit">
-            Sign in
+          <Button className="w-full" type="submit" asChild>
+            <Link to="/dashboard">Sign in</Link>
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">

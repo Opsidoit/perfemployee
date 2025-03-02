@@ -42,8 +42,8 @@ const SignUpPage = () => {
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" required />
           </div>
-          <Button className="w-full" type="submit">
-            Create account
+          <Button className="w-full" type="submit" asChild>
+            <Link to="/dashboard">Create account</Link>
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
