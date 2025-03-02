@@ -49,13 +49,13 @@ const HeroSection = ({
             </div>
           </div>
 
-          {/* Floating document preview mockup */}
+          {/* Floating document preview mockup with HIRED stamp */}
           <div className="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 bg-white rounded-lg shadow-2xl w-[300px] h-[400px] rotate-3 overflow-hidden">
             <div className="p-4 border-b border-gray-200">
               <div className="h-6 w-32 bg-gray-200 rounded mb-4"></div>
               <div className="h-4 w-48 bg-gray-100 rounded"></div>
             </div>
-            <div className="p-4">
+            <div className="p-4 relative">
               <div className="h-4 w-full bg-gray-100 rounded mb-3"></div>
               <div className="h-4 w-full bg-gray-100 rounded mb-3"></div>
               <div className="h-4 w-3/4 bg-gray-100 rounded mb-6"></div>
@@ -67,6 +67,11 @@ const HeroSection = ({
               <div className="h-4 w-full bg-gray-100 rounded mb-3"></div>
               <div className="h-4 w-full bg-gray-100 rounded mb-3"></div>
               <div className="h-4 w-2/3 bg-gray-100 rounded"></div>
+
+              {/* HIRED Stamp */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-30deg] border-4 border-red-600 rounded-lg px-4 py-2">
+                <span className="text-red-600 font-bold text-2xl">HIRED</span>
+              </div>
             </div>
           </div>
         </div>
