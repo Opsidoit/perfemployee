@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         passwordLength: password.length,
         name,
       });
-      // For development, disable email confirmation
+      // For development, use admin API to create user without email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
