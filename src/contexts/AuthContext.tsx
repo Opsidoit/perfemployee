@@ -51,6 +51,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signUp = async (email: string, password: string, name: string) => {
     try {
       setLoading(true);
+      console.log("Signing up with:", {
+        email,
+        passwordLength: password.length,
+        name,
+      });
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -61,17 +66,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Sign up error:", error);
+        throw error;
+      }
 
       // Create user profile
       if (data.user) {
-        const { error: profileError } = await supabase.from("profiles").insert({
-          id: data.user.id,
-          full_name: name,
-          email: email,
-        });
+        try {
+          // Check if profile already exists
+          const { data: existingProfile } = await supabase
+            .from("profiles")
+            .select("id")
+            .eq("id", data.user.id)
+            .single();
 
-        if (profileError) throw profileError;
+          if (!existingProfile) {
+            const { error: profileError } = await supabase
+              .from("profiles")
+              .insert({
+                id: data.user.id,
+                full_name: name,
+                email: email,
+              });
+
+            if (profileError)
+              console.error("Profile creation error:", profileError);
+          }
+        } catch (profileErr) {
+          console.error("Failed to create profile:", profileErr);
+          // Continue with sign up even if profile creation fails
+        }
       }
 
       toast({
@@ -79,7 +104,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description: "Your account has been created successfully.",
       });
 
-      navigate("/dashboard");
+      // Check if email confirmation is required
+      if (data?.user?.identities?.length === 0) {
+        toast({
+          title: "Email verification required",
+          description:
+            "Please check your email to verify your account before signing in.",
+        });
+        navigate("/sign-in");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error: any) {
       toast({
         title: "Error",
