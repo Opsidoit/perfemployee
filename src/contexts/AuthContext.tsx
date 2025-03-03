@@ -56,6 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         passwordLength: password.length,
         name,
       });
+      // For development, disable email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -104,17 +105,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description: "Your account has been created successfully.",
       });
 
-      // Check if email confirmation is required
-      if (data?.user?.identities?.length === 0) {
-        toast({
-          title: "Email verification required",
-          description:
-            "Please check your email to verify your account before signing in.",
-        });
-        navigate("/sign-in");
-      } else {
-        navigate("/dashboard");
-      }
+      // For development, always redirect to dashboard
+      console.log("Sign up successful:", data);
+      navigate("/dashboard");
     } catch (error: any) {
       toast({
         title: "Error",

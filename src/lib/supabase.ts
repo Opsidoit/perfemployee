@@ -5,4 +5,11 @@ const supabaseUrl =
 const supabaseAnonKey =
   import.meta.env.VITE_SUPABASE_ANON_KEY || "placeholder-key";
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// For development, disable auto-redirect to external auth pages
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
