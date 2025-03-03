@@ -39,7 +39,7 @@ const HeroSection = ({
               <Button
                 size="lg"
                 asChild
-                className="hover:bg-primary/90 text-white font-medium flex-row items-center rounded-lg justify-center h-12 bg-[#46bb2f]"
+                className="hover:bg-primary/90 text-white font-medium flex-row items-center rounded-lg justify-center h-12 bg-[#46bb2f] transition-transform duration-300 hover:scale-110"
               >
                 <Link to="/sign-up">
                   {ctaText}

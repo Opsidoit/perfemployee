@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Save, Download, ArrowLeft } from "lucide-react";
+import { Save, Download, ArrowLeft, Wand2, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CVEditor = () => {
@@ -27,33 +27,30 @@ const CVEditor = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left sidebar - CV sections */}
+        {/* Left sidebar - AI Assistant */}
         <div className="lg:col-span-1">
-          <Card>
-            <CardContent className="p-4">
-              <h3 className="font-medium mb-4">CV Sections</h3>
-              <div className="space-y-2">
-                <Button variant="default" className="w-full justify-start">
-                  Personal Information
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Professional Summary
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Work Experience
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Education
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Skills
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Languages
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  Certifications
-                </Button>
+          <Card className="bg-gradient-to-br from-indigo-50 to-blue-50 border-blue-200">
+            <CardContent className="p-6">
+              <div className="flex justify-center mb-4">
+                <div className="p-3 bg-blue-500 rounded-full text-white">
+                  <Sparkles className="h-8 w-8" />
+                </div>
+              </div>
+              <h3 className="font-bold text-xl text-center mb-4">
+                AI Resume Builder
+              </h3>
+              <p className="text-gray-600 mb-6 text-center">
+                Let our AI craft a professional CV tailored to your industry and
+                experience
+              </p>
+              <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-6">
+                <Wand2 className="mr-2 h-5 w-5" /> Generate Professional CV
+              </Button>
+              <div className="mt-4 text-center text-sm text-gray-500">
+                <p>
+                  Our AI analyzes thousands of successful resumes to create the
+                  perfect CV for your target role
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -64,7 +61,7 @@ const CVEditor = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4">
-                Personal Information
+                Your Professional Profile
               </h2>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -92,56 +89,69 @@ const CVEditor = () => {
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Job Title
+                    Professional Title
                   </label>
                   <input
                     type="text"
                     className="w-full p-2 border rounded-md"
-                    placeholder="Software Developer"
+                    placeholder="Senior Software Engineer"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Email
+                    Professional Summary
+                  </label>
+                  <textarea
+                    className="w-full p-2 border rounded-md h-24"
+                    placeholder="Experienced software engineer with 5+ years developing scalable applications..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Years of Experience
                   </label>
                   <input
-                    type="email"
+                    type="number"
                     className="w-full p-2 border rounded-md"
-                    placeholder="john.doe@example.com"
+                    placeholder="5"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Phone
+                    Industry
                   </label>
-                  <input
-                    type="tel"
-                    className="w-full p-2 border rounded-md"
-                    placeholder="+1 (555) 123-4567"
-                  />
+                  <select className="w-full p-2 border rounded-md">
+                    <option>Technology</option>
+                    <option>Finance</option>
+                    <option>Healthcare</option>
+                    <option>Education</option>
+                    <option>Marketing</option>
+                    <option>Other</option>
+                  </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Location
+                    Key Skills (comma separated)
                   </label>
                   <input
                     type="text"
                     className="w-full p-2 border rounded-md"
-                    placeholder="New York, NY"
+                    placeholder="JavaScript, React, Node.js, AWS, Python"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    LinkedIn
+                    Target Job Title
                   </label>
                   <input
-                    type="url"
+                    type="text"
                     className="w-full p-2 border rounded-md"
-                    placeholder="https://linkedin.com/in/johndoe"
+                    placeholder="Senior Frontend Developer"
                   />
                 </div>
               </div>

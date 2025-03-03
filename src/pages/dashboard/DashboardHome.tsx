@@ -13,9 +13,11 @@ import { Link } from "react-router-dom";
 const DashboardHome = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Welcome back!</h1>
+      <h1 className="text-3xl font-bold mb-6">
+        Welcome back! Let's sharpen your applications!
+      </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -28,21 +30,12 @@ const DashboardHome = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="border rounded-md p-4 flex justify-between items-center">
-                <div>
-                  <h3 className="font-medium">Software Developer CV</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Last edited: 2 days ago
-                  </p>
-                </div>
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/dashboard/cv/1">Edit</Link>
-                </Button>
-              </div>
-
-              <Button className="w-full" variant="outline" asChild>
+              <Button
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white font-medium h-24"
+                asChild
+              >
                 <Link to="/dashboard/cv/new">
-                  <Plus className="mr-2 h-4 w-4" /> Create New CV
+                  <Plus className="mr-2 h-6 w-6" /> Craft Your Professional CV
                 </Link>
               </Button>
             </div>
@@ -61,59 +54,19 @@ const DashboardHome = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="border rounded-md p-4 flex justify-between items-center">
-                <div>
-                  <h3 className="font-medium">Google Application</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Last edited: 1 week ago
-                  </p>
-                </div>
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/dashboard/cover-letter/1">Edit</Link>
-                </Button>
-              </div>
-
-              <Button className="w-full" variant="outline" asChild>
+              <Button
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-600 hover:to-emerald-500 text-white font-medium h-24"
+                asChild
+              >
                 <Link to="/dashboard/cover-letter/new">
-                  <Plus className="mr-2 h-4 w-4" /> Create New Cover Letter
+                  <Plus className="mr-2 h-6 w-6" /> Design Your Winning Cover
+                  Letter
                 </Link>
               </Button>
             </div>
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>
-            Your recent document edits and activities
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="border-b pb-2">
-              <p className="text-sm">
-                You edited{" "}
-                <span className="font-medium">Software Developer CV</span>
-              </p>
-              <p className="text-xs text-muted-foreground">2 days ago</p>
-            </div>
-            <div className="border-b pb-2">
-              <p className="text-sm">
-                You created{" "}
-                <span className="font-medium">Google Application</span> cover
-                letter
-              </p>
-              <p className="text-xs text-muted-foreground">1 week ago</p>
-            </div>
-            <div className="border-b pb-2">
-              <p className="text-sm">You updated your profile information</p>
-              <p className="text-xs text-muted-foreground">2 weeks ago</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
