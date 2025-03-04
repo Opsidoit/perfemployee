@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import CVPreviewModal from "@/components/cv/CVPreviewModal";
 
 interface ExperienceEntry {
   title: string;
@@ -33,14 +34,19 @@ interface EducationEntry {
 
 interface ExtracurricularEntry {
   activity: string;
-  role: string;
-  startMonth: string;
-  startYear: string;
-  endMonth: string;
-  endYear: string;
+  description: string;
 }
 
 const CVEditor = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [skills, setSkills] = useState("");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
   const [experienceEntries, setExperienceEntries] = useState<ExperienceEntry[]>(
     [
       {
@@ -71,11 +77,7 @@ const CVEditor = () => {
   >([
     {
       activity: "",
-      role: "",
-      startMonth: "January",
-      startYear: "2020",
-      endMonth: "Present",
-      endYear: "",
+      description: "",
     },
   ]);
 
@@ -113,11 +115,7 @@ const CVEditor = () => {
       ...extracurricularEntries,
       {
         activity: "",
-        role: "",
-        startMonth: "January",
-        startYear: "2020",
-        endMonth: "Present",
-        endYear: "",
+        description: "",
       },
     ]);
   };
@@ -170,6 +168,10 @@ const CVEditor = () => {
     setExtracurricularEntries(updatedEntries);
   };
 
+  const handleGenerateCV = () => {
+    setIsPreviewOpen(true);
+  };
+
   const months = [
     "January",
     "February",
@@ -190,6 +192,27 @@ const CVEditor = () => {
     { length: new Date().getFullYear() - 1930 + 1 },
     (_, i) => (new Date().getFullYear() - i).toString(),
   );
+
+  const cvData = {
+    firstName,
+    lastName,
+    email,
+    phone,
+    city,
+    country,
+    skills: skills
+      .split(",")
+      .map((skill) => skill.trim())
+      .filter((skill) => skill),
+    experiences: experienceEntries,
+    education: educationEntries,
+    extracurricular: extracurricularEntries.map(
+      ({ activity, description }) => ({
+        activity,
+        role: description,
+      }),
+    ),
+  };
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -215,7 +238,7 @@ const CVEditor = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left sidebar - AI Assistant */}
         <div className="lg:col-span-1">
-          <Card className="bg-gradient-to-br from-indigo-50 to-blue-50 border-blue-200">
+          <Card className="bg-gradient-to-br from-indigo-50 to-blue-50 border-blue-200 sticky top-6">
             <CardContent className="p-6">
               <div className="flex justify-center mb-4">
                 <div className="p-3 bg-blue-500 rounded-full text-white">
@@ -229,7 +252,10 @@ const CVEditor = () => {
                 Let our AI craft a professional CV tailored to your industry and
                 experience
               </p>
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-6">
+              <Button
+                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-6"
+                onClick={handleGenerateCV}
+              >
                 <Wand2 className="mr-2 h-5 w-5" /> Generate Professional CV
               </Button>
               <div className="mt-4 text-center text-sm text-gray-500">
@@ -259,6 +285,8 @@ const CVEditor = () => {
                       type="text"
                       className="w-full p-2 border rounded-md"
                       placeholder="Simone"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -269,6 +297,8 @@ const CVEditor = () => {
                       type="text"
                       className="w-full p-2 border rounded-md"
                       placeholder="Obrizzo"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -291,6 +321,8 @@ const CVEditor = () => {
                       type="tel"
                       className="w-full p-2 border rounded-md"
                       placeholder="+1 (555) 123-4567"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -303,6 +335,8 @@ const CVEditor = () => {
                     type="email"
                     className="w-full p-2 border rounded-md"
                     placeholder="your.mail@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -315,6 +349,8 @@ const CVEditor = () => {
                       type="text"
                       className="w-full p-2 border rounded-md"
                       placeholder="New York"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
                     />
                   </div>
                   <div>
@@ -325,6 +361,8 @@ const CVEditor = () => {
                       type="text"
                       className="w-full p-2 border rounded-md"
                       placeholder="United States"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
                     />
                   </div>
                 </div>
@@ -337,6 +375,8 @@ const CVEditor = () => {
                     type="text"
                     className="w-full p-2 border rounded-md"
                     placeholder="Excel, JavaScript, AWS, Python, ..."
+                    value={skills}
+                    onChange={(e) => setSkills(e.target.value)}
                   />
                 </div>
 
@@ -749,118 +789,21 @@ const CVEditor = () => {
 
                       <div>
                         <label className="block text-sm font-medium mb-1">
-                          Role
+                          Description
                         </label>
                         <input
                           type="text"
                           className="w-full p-2 border rounded-md"
                           placeholder="Team Captain, Volunteer, Member, etc."
-                          value={entry.role}
+                          value={entry.description}
                           onChange={(e) =>
                             updateExtracurricularEntry(
                               index,
-                              "role",
+                              "description",
                               e.target.value,
                             )
                           }
                         />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium mb-1">
-                            Start Date
-                          </label>
-                          <div className="grid grid-cols-2 gap-2">
-                            <select
-                              className="p-2 border rounded-md"
-                              value={entry.startMonth}
-                              onChange={(e) =>
-                                updateExtracurricularEntry(
-                                  index,
-                                  "startMonth",
-                                  e.target.value,
-                                )
-                              }
-                            >
-                              {months
-                                .filter((m) => m !== "Present")
-                                .map((month) => (
-                                  <option key={month} value={month}>
-                                    {month}
-                                  </option>
-                                ))}
-                            </select>
-                            <select
-                              className="p-2 border rounded-md"
-                              value={entry.startYear}
-                              onChange={(e) =>
-                                updateExtracurricularEntry(
-                                  index,
-                                  "startYear",
-                                  e.target.value,
-                                )
-                              }
-                            >
-                              {years.map((year) => (
-                                <option key={year} value={year}>
-                                  {year}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium mb-1">
-                            End Date
-                          </label>
-                          <div className="grid grid-cols-2 gap-2">
-                            <select
-                              className="p-2 border rounded-md"
-                              value={entry.endMonth}
-                              onChange={(e) =>
-                                updateExtracurricularEntry(
-                                  index,
-                                  "endMonth",
-                                  e.target.value,
-                                )
-                              }
-                            >
-                              {months.map((month) => (
-                                <option key={month} value={month}>
-                                  {month}
-                                </option>
-                              ))}
-                            </select>
-                            {entry.endMonth !== "Present" && (
-                              <select
-                                className="p-2 border rounded-md"
-                                value={entry.endYear}
-                                onChange={(e) =>
-                                  updateExtracurricularEntry(
-                                    index,
-                                    "endYear",
-                                    e.target.value,
-                                  )
-                                }
-                              >
-                                {years.map((year) => (
-                                  <option key={year} value={year}>
-                                    {year}
-                                  </option>
-                                ))}
-                              </select>
-                            )}
-                            {entry.endMonth === "Present" && (
-                              <select
-                                className="p-2 border rounded-md bg-gray-100 text-gray-500"
-                                disabled
-                              >
-                                <option>Present</option>
-                              </select>
-                            )}
-                          </div>
-                        </div>
                       </div>
                     </div>
                   ))}
@@ -870,6 +813,13 @@ const CVEditor = () => {
           </Card>
         </div>
       </div>
+
+      {/* CV Preview Modal */}
+      <CVPreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        cvData={cvData}
+      />
     </div>
   );
 };
