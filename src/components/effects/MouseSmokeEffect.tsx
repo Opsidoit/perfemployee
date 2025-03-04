@@ -13,7 +13,7 @@ interface Particle {
 
 function SmokeEffect({
   color = "#26cef3",
-  particlesPerEmit = 4,
+  particlesPerEmit = 2,
 }: {
   color?: string;
   particlesPerEmit?: number;
@@ -26,10 +26,10 @@ function SmokeEffect({
       id,
       x,
       y,
-      angle: Math.random() * Math.PI * 2,
+      angle: Math.random() * Math.PI * 1,
       speed: Math.random() * 0.8 + 0.5,
-      size: Math.random() * 12 + 8,
-      opacity: Math.random() * 0.5 + 0.3,
+      size: Math.random() * 12 + 10,
+      opacity: Math.random() * 0.6 + 0.3,
     }),
     [],
   );
@@ -37,7 +37,7 @@ function SmokeEffect({
   const emitParticles = useCallback(
     (x: number, y: number) => {
       const now = Date.now();
-      if (now - lastEmitTime < 20) return;
+      if (now - lastEmitTime < 10) return;
       setLastEmitTime(now);
 
       const newParticles = Array.from({ length: particlesPerEmit }, (_, i) =>
