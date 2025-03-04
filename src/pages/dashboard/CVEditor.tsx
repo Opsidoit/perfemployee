@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 
 interface ExperienceEntry {
+  title: string;
   summary: string;
   startMonth: string;
   startYear: string;
@@ -43,6 +44,7 @@ const CVEditor = () => {
   const [experienceEntries, setExperienceEntries] = useState<ExperienceEntry[]>(
     [
       {
+        title: "",
         summary: "",
         startMonth: "January",
         startYear: "2020",
@@ -81,6 +83,7 @@ const CVEditor = () => {
     setExperienceEntries([
       ...experienceEntries,
       {
+        title: "",
         summary: "",
         startMonth: "January",
         startYear: "2020",
@@ -270,17 +273,6 @@ const CVEditor = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Professional Title
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full p-2 border rounded-md"
-                    placeholder="Senior Software Engineer"
-                  />
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
@@ -372,16 +364,17 @@ const CVEditor = () => {
                       <div className="flex">
                         <div className="flex-grow">
                           <label className="block text-sm font-medium mb-1">
-                            Professional Summary
+                            Professional Title
                           </label>
-                          <textarea
-                            className="w-full p-2 border rounded-md h-24"
-                            placeholder="Write all your experience you did on the job, the skills you learned and the achievements..."
-                            value={entry.summary}
+                          <input
+                            type="text"
+                            className="w-full p-2 border rounded-md"
+                            placeholder="Senior Software Engineer"
+                            value={entry.title}
                             onChange={(e) =>
                               updateExperienceEntry(
                                 index,
-                                "summary",
+                                "title",
                                 e.target.value,
                               )
                             }
@@ -395,6 +388,24 @@ const CVEditor = () => {
                         >
                           <X className="h-4 w-4" />
                         </Button>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          Professional Summary
+                        </label>
+                        <textarea
+                          className="w-full p-2 border rounded-md h-24"
+                          placeholder="Write all your experience you did on the job, the skills you learned and the achievements..."
+                          value={entry.summary}
+                          onChange={(e) =>
+                            updateExperienceEntry(
+                              index,
+                              "summary",
+                              e.target.value,
+                            )
+                          }
+                        />
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
@@ -715,7 +726,7 @@ const CVEditor = () => {
                           <input
                             type="text"
                             className="w-full p-2 border rounded-md"
-                            placeholder="Volunteer Work, Sports, etc."
+                            placeholder="Volunteer Work, Sports Team, Club, etc."
                             value={entry.activity}
                             onChange={(e) =>
                               updateExtracurricularEntry(
@@ -734,6 +745,122 @@ const CVEditor = () => {
                         >
                           <X className="h-4 w-4" />
                         </Button>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          Role
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full p-2 border rounded-md"
+                          placeholder="Team Captain, Volunteer, Member, etc."
+                          value={entry.role}
+                          onChange={(e) =>
+                            updateExtracurricularEntry(
+                              index,
+                              "role",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-1">
+                            Start Date
+                          </label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <select
+                              className="p-2 border rounded-md"
+                              value={entry.startMonth}
+                              onChange={(e) =>
+                                updateExtracurricularEntry(
+                                  index,
+                                  "startMonth",
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              {months
+                                .filter((m) => m !== "Present")
+                                .map((month) => (
+                                  <option key={month} value={month}>
+                                    {month}
+                                  </option>
+                                ))}
+                            </select>
+                            <select
+                              className="p-2 border rounded-md"
+                              value={entry.startYear}
+                              onChange={(e) =>
+                                updateExtracurricularEntry(
+                                  index,
+                                  "startYear",
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              {years.map((year) => (
+                                <option key={year} value={year}>
+                                  {year}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">
+                            End Date
+                          </label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <select
+                              className="p-2 border rounded-md"
+                              value={entry.endMonth}
+                              onChange={(e) =>
+                                updateExtracurricularEntry(
+                                  index,
+                                  "endMonth",
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              {months.map((month) => (
+                                <option key={month} value={month}>
+                                  {month}
+                                </option>
+                              ))}
+                            </select>
+                            {entry.endMonth !== "Present" && (
+                              <select
+                                className="p-2 border rounded-md"
+                                value={entry.endYear}
+                                onChange={(e) =>
+                                  updateExtracurricularEntry(
+                                    index,
+                                    "endYear",
+                                    e.target.value,
+                                  )
+                                }
+                              >
+                                {years.map((year) => (
+                                  <option key={year} value={year}>
+                                    {year}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                            {entry.endMonth === "Present" && (
+                              <select
+                                className="p-2 border rounded-md bg-gray-100 text-gray-500"
+                                disabled
+                              >
+                                <option>Present</option>
+                              </select>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
