@@ -436,7 +436,7 @@ const CVEditor = () => {
                         </label>
                         <textarea
                           className="w-full p-2 border rounded-md h-24"
-                          placeholder="Write all your experience you did on the job, the skills you learned and the achievements... more infos!"
+                          placeholder="Write all your experience you did on the job, the skills you learned and the achievements..."
                           value={entry.summary}
                           onChange={(e) =>
                             updateExperienceEntry(
@@ -766,7 +766,7 @@ const CVEditor = () => {
                           <input
                             type="text"
                             className="w-full p-2 border rounded-md"
-                            placeholder="Volunteer Work, Sports Team, Club, etc."
+                            placeholder="Volunteer Work, Sports Team, Chess, etc."
                             value={entry.activity}
                             onChange={(e) =>
                               updateExtracurricularEntry(
@@ -794,7 +794,7 @@ const CVEditor = () => {
                         <input
                           type="text"
                           className="w-full p-2 border rounded-md"
-                          placeholder="Describe in details!"
+                          placeholder="Not Mandatory Description"
                           value={entry.description}
                           onChange={(e) =>
                             updateExtracurricularEntry(

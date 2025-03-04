@@ -44,128 +44,148 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
   extracurricular,
 }) => {
   return (
-    <div className="bg-white p-8 max-w-4xl mx-auto shadow-lg">
-      {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold mb-2">
-          {firstName} {lastName}
-        </h1>
-        <div className="text-sm">
-          {phone} |{" "}
-          <a href={`mailto:${email}`} className="text-blue-600 hover:underline">
-            {email}
-          </a>{" "}
-          | {city}, {country}
-        </div>
-      </div>
-
-      {/* Summary */}
-      <div className="mb-6">
-        <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-2">
-          Summary
-        </h2>
-        <p className="text-sm">
-          {experiences[0]?.summary ||
-            "Collaborative, ambitious problem-solver with inclusive leadership qualities, seeking internship position in Communication, Marketing, or Media. Prioritizes attention to detail, thoroughness, and aesthetic appeal. Energized by forming connections, learning from others, and embracing creativity."}
-        </p>
-      </div>
-
-      {/* Education */}
-      <div className="mb-6">
-        <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-2">
-          Education
-        </h2>
-        {education.map((edu, index) => (
-          <div key={index} className="mb-2">
-            <div className="flex justify-between">
-              <div className="font-bold">
-                {edu.institution ||
-                  "North Carolina State University, Raleigh, NC"}
-              </div>
-              <div>
-                {edu.startMonth} {edu.startYear} -{" "}
-                {edu.endMonth === "Present"
-                  ? "Present"
-                  : `${edu.endMonth} ${edu.endYear}`}
-              </div>
+    <div className="bg-white p-6 max-w-4xl mx-auto shadow-md">
+      {/* Header with sidebar layout */}
+      <div className="flex flex-col md:flex-row">
+        {/* Left sidebar with contact info */}
+        <div className="bg-gray-100 p-6 md:w-1/3">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold uppercase tracking-wider mb-1">
+              {firstName || "John"} {lastName || "Doe"}
+            </h1>
+            <div className="text-gray-600 font-medium">
+              {experiences[0]?.title || "Professional Title"}
             </div>
-            <div>{edu.degree || "Bachelor of Arts in Communication"}</div>
-            {edu.grade && <div>GPA: {edu.grade}</div>}
           </div>
-        ))}
-      </div>
 
-      {/* Skills */}
-      <div className="mb-6">
-        <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-2">
-          Skills and Coursework
-        </h2>
-        <div className="grid grid-cols-3 gap-4">
-          {skills.length > 0 ? (
-            skills.map((skill, index) => (
-              <div key={index} className="text-sm">
-                - {skill.trim()}
-              </div>
-            ))
-          ) : (
-            <>
-              <div className="text-sm">- Communication Theory</div>
-              <div className="text-sm">- Creative Thinking</div>
-              <div className="text-sm">- Canva</div>
-              <div className="text-sm">- Newsletter Writing</div>
-              <div className="text-sm">- Relationship Building</div>
-              <div className="text-sm">- Adobe Illustrator</div>
-              <div className="text-sm">- Academic Writing</div>
-              <div className="text-sm">- Psychology</div>
-              <div className="text-sm">- iMovie</div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Experience */}
-      <div className="mb-6">
-        <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-2">
-          Experience
-        </h2>
-        {experiences.map((exp, index) => (
-          <div key={index} className="mb-4">
-            <div className="flex justify-between">
-              <div className="font-bold">
-                {exp.title || "Social Media Chair"}, {city}
+          <div className="mb-6">
+            <h2 className="text-lg font-bold border-b border-gray-400 mb-3 pb-1">
+              CONTACT
+            </h2>
+            <div className="space-y-2">
+              <div>
+                <div className="font-semibold">Phone</div>
+                <div>{phone || "+1 (555) 123-4567"}</div>
               </div>
               <div>
-                {exp.startMonth} {exp.startYear} -{" "}
-                {exp.endMonth === "Present"
-                  ? "Present"
-                  : `${exp.endMonth} ${exp.endYear}`}
+                <div className="font-semibold">Email</div>
+                <div className="break-all">
+                  {email || "john.doe@example.com"}
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Location</div>
+                <div>
+                  {city || "New York"}
+                  {city && country ? ", " : ""}
+                  {country || "USA"}
+                </div>
               </div>
             </div>
-            <ul className="list-disc pl-5 text-sm">
-              {exp.summary.split("\n").map((line, i) => (
-                <li key={i}>{line.trim()}</li>
-              ))}
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-lg font-bold border-b border-gray-400 mb-3 pb-1">
+              SKILLS
+            </h2>
+            <ul className="list-disc pl-5 space-y-1">
+              {skills.length > 0 ? (
+                skills.map((skill, index) => <li key={index}>{skill}</li>)
+              ) : (
+                <>
+                  <li>Communication</li>
+                  <li>Leadership</li>
+                  <li>Problem Solving</li>
+                  <li>Project Management</li>
+                  <li>Team Collaboration</li>
+                  <li>Critical Thinking</li>
+                </>
+              )}
             </ul>
           </div>
-        ))}
-      </div>
 
-      {/* Extracurricular */}
-      {extracurricular.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-2">
-            Extracurricular and Service
-          </h2>
-          <ul className="list-disc pl-5 text-sm">
-            {extracurricular.map((extra, index) => (
-              <li key={index}>
-                {extra.activity}
-                {extra.role ? `, ${extra.role}` : ""}
-              </li>
-            ))}
-          </ul>
+          {extracurricular.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold border-b border-gray-400 mb-3 pb-1">
+                INTERESTS
+              </h2>
+              <ul className="list-disc pl-5 space-y-1">
+                {extracurricular.map((extra, index) => (
+                  <li key={index}>
+                    <span className="font-medium">{extra.activity}</span>
+                    {extra.role && <div className="text-sm">{extra.role}</div>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Main content */}
+        <div className="p-6 md:w-2/3">
+          {/* Summary Section */}
+          <div className="mb-6">
+            <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-3 pb-1">
+              SUMMARY
+            </h2>
+            <p>
+              {experiences[0]?.summary ||
+                "Results-driven professional with a proven track record of success in fast-paced environments. Skilled in developing innovative solutions and optimizing processes to drive organizational growth. Committed to delivering high-quality results while maintaining strong attention to detail."}
+            </p>
+          </div>
+
+          {/* Experience Section */}
+          <div className="mb-6">
+            <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-3 pb-1">
+              PROFESSIONAL EXPERIENCE
+            </h2>
+            {experiences.map((exp, index) => (
+              <div key={index} className="mb-4">
+                <div className="font-bold">{exp.title || "Position Title"}</div>
+                <div className="text-gray-600 mb-2">
+                  {exp.startMonth} {exp.startYear} -{" "}
+                  {exp.endMonth === "Present"
+                    ? "Present"
+                    : `${exp.endMonth} ${exp.endYear}`}
+                </div>
+                <ul className="list-disc pl-5 space-y-1">
+                  {exp.summary ? (
+                    exp.summary
+                      .split("\n")
+                      .map((line, i) => <li key={i}>{line.trim()}</li>)
+                  ) : (
+                    <li>
+                      Responsible for key initiatives and project management
+                    </li>
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Education Section */}
+          <div>
+            <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-3 pb-1">
+              EDUCATION
+            </h2>
+            {education.map((edu, index) => (
+              <div key={index} className="mb-2">
+                <div className="font-bold">
+                  {edu.degree || "Bachelor's Degree"}
+                </div>
+                <div>{edu.institution || "University Name"}</div>
+                <div className="text-gray-600">
+                  {edu.startMonth} {edu.startYear} -{" "}
+                  {edu.endMonth === "Present"
+                    ? "Present"
+                    : `${edu.endMonth} ${edu.endYear}`}
+                </div>
+                {edu.grade && <div>GPA: {edu.grade}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
