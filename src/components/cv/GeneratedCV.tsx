@@ -8,6 +8,7 @@ interface GeneratedCVProps {
   city: string;
   country: string;
   skills: string[];
+  summary?: string;
   experiences: {
     title: string;
     summary: string;
@@ -42,6 +43,7 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
   experiences,
   education,
   extracurricular,
+  summary,
 }) => {
   return (
     <div className="bg-white p-6 max-w-4xl mx-auto shadow-md">
@@ -129,7 +131,8 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
               SUMMARY
             </h2>
             <p>
-              {experiences[0]?.summary ||
+              {summary ||
+                experiences[0]?.summary ||
                 "Results-driven professional with a proven track record of success in fast-paced environments. Skilled in developing innovative solutions and optimizing processes to drive organizational growth. Committed to delivering high-quality results while maintaining strong attention to detail."}
             </p>
           </div>

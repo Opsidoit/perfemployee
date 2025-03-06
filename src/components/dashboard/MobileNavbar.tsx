@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, X, FileText, Mail, User, LogOut } from "lucide-react";
+import { Menu, X, FileText, Mail, User, LogOut, Save } from "lucide-react";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -78,6 +78,15 @@ const MobileNavbar = ({
                 >
                   <FileText className="mr-2 h-5 w-5" />
                   Curriculum Vitae
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start"
+                  onClick={() => handleNavigation("saved-cvs")}
+                >
+                  <Save className="mr-2 h-5 w-5" />
+                  Saved CVs
                 </Button>
 
                 <Button

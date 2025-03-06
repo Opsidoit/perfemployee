@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -10,8 +10,10 @@ import {
   Plus,
   X,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CVPreviewModal from "@/components/cv/CVPreviewModal";
+import { useCV } from "@/contexts/CVContext";
+import { Loader2 } from "lucide-react";
 
 interface ExperienceEntry {
   title: string;
@@ -38,6 +40,9 @@ interface ExtracurricularEntry {
 }
 
 const CVEditor = () => {
+  const { id } = useParams<{ id: string }>();
+  const { getCV, loading: cvLoading } = useCV();
+  const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +50,52 @@ const CVEditor = () => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [skills, setSkills] = useState("");
+  const [cvSummary, setCvSummary] = useState("");
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      loadCV(id);
+    }
+  }, [id]);
+
+  const loadCV = async (cvId: string) => {
+    try {
+      setLoading(true);
+      const cvData = await getCV(cvId);
+
+      if (cvData) {
+        setFirstName(cvData.firstName || "");
+        setLastName(cvData.lastName || "");
+        setEmail(cvData.email || "");
+        setPhone(cvData.phone || "");
+        setCity(cvData.city || "");
+        setCountry(cvData.country || "");
+        setSkills(cvData.skills.join(", "));
+
+        if (cvData.experiences && cvData.experiences.length > 0) {
+          setExperienceEntries(cvData.experiences);
+        }
+
+        if (cvData.education && cvData.education.length > 0) {
+          setEducationEntries(cvData.education);
+        }
+
+        if (cvData.extracurricular && cvData.extracurricular.length > 0) {
+          setExtracurricularEntries(
+            cvData.extracurricular.map((item) => ({
+              activity: item.activity,
+              description: item.role,
+            })),
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error loading CV:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [experienceEntries, setExperienceEntries] = useState<ExperienceEntry[]>(
     [
@@ -194,12 +244,15 @@ const CVEditor = () => {
   );
 
   const cvData = {
+    id,
+    title: `${firstName} ${lastName}'s CV`,
     firstName,
     lastName,
     email,
     phone,
     city,
     country,
+    summary: cvSummary, // Add separate summary field
     skills: skills
       .split(",")
       .map((skill) => skill.trim())
@@ -214,25 +267,24 @@ const CVEditor = () => {
     ),
   };
 
+  if (loading || cvLoading) {
+    return (
+      <div className="p-6 max-w-7xl mx-auto flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary mr-2" />
+        <span>Loading CV data...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center">
-          <Button variant="ghost" size="icon" asChild className="mr-2">
-            <Link to="/dashboard">
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
-          </Button>
-          <h1 className="text-2xl font-bold">Edit Curriculum Vitae</h1>
-        </div>
-        <div className="flex space-x-2">
-          <Button variant="outline" size="sm">
-            <Download className="mr-2 h-4 w-4" /> Export
-          </Button>
-          <Button size="sm">
-            <Save className="mr-2 h-4 w-4" /> Save
-          </Button>
-        </div>
+      <div className="flex items-center mb-6">
+        <Button variant="ghost" size="icon" asChild className="mr-2">
+          <Link to="/dashboard">
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+        </Button>
+        <h1 className="text-2xl font-bold">Edit Curriculum Vitae</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -283,13 +335,10 @@ const CVEditor = () => {
                   <textarea
                     className="w-full p-2 border rounded-md h-24"
                     placeholder="Write a brief summary of your professional background, skills, and career goals..."
-                    value={experienceEntries[0]?.summary || ""}
+                    value={cvData.summary || ""}
                     onChange={(e) => {
-                      const updatedEntries = [...experienceEntries];
-                      if (updatedEntries[0]) {
-                        updatedEntries[0].summary = e.target.value;
-                        setExperienceEntries(updatedEntries);
-                      }
+                      // Store this in a separate field that doesn't affect job descriptions
+                      setCvSummary(e.target.value);
                     }}
                   />
                   <p className="text-xs text-gray-500 mt-1">

@@ -9,6 +9,60 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cvs: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string | null
+          education: Json | null
+          email: string | null
+          experiences: Json | null
+          extracurricular: Json | null
+          firstname: string | null
+          id: string
+          lastname: string | null
+          phone: string | null
+          skills: Json | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          education?: Json | null
+          email?: string | null
+          experiences?: Json | null
+          extracurricular?: Json | null
+          firstname?: string | null
+          id?: string
+          lastname?: string | null
+          phone?: string | null
+          skills?: Json | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          education?: Json | null
+          email?: string | null
+          experiences?: Json | null
+          extracurricular?: Json | null
+          firstname?: string | null
+          id?: string
+          lastname?: string | null
+          phone?: string | null
+          skills?: Json | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null

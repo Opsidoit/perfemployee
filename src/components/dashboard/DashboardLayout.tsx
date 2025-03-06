@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { FileText, FileEdit, User, Settings, LogOut } from "lucide-react";
+import { FileText, FileEdit, User, Settings, LogOut, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -56,7 +56,16 @@ const DashboardLayout = () => {
                 icon={<FileText className="h-5 w-5" />}
                 label="Curriculum Vitae"
                 to="/dashboard/cv"
-                active={location.pathname.includes("/dashboard/cv")}
+                active={
+                  location.pathname.includes("/dashboard/cv") &&
+                  !location.pathname.includes("/dashboard/saved-cvs")
+                }
+              />
+              <SidebarItem
+                icon={<Save className="h-5 w-5" />}
+                label="Saved CVs"
+                to="/dashboard/saved-cvs"
+                active={location.pathname.includes("/dashboard/saved-cvs")}
               />
               <SidebarItem
                 icon={<FileEdit className="h-5 w-5" />}

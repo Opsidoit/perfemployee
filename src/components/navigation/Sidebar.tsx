@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Home,
+  Save,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -104,6 +105,12 @@ const Sidebar = ({
               to="/dashboard/cv"
               icon={<FileText className="h-5 w-5" />}
               label="Curriculum Vitae"
+              isCollapsed={isCollapsed}
+            />
+            <NavItem
+              to="/dashboard/saved-cvs"
+              icon={<Save className="h-5 w-5" />}
+              label="Saved CVs"
               isCollapsed={isCollapsed}
             />
             <NavItem

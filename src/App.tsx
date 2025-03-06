@@ -7,11 +7,13 @@ import SignInPage from "./pages/SignInPage";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import CVEditor from "./pages/dashboard/CVEditor";
+import SavedCVs from "./pages/dashboard/SavedCVs";
 import CoverLetterEditor from "./pages/dashboard/CoverLetterEditor";
 import UserProfile from "./pages/dashboard/UserProfile";
 import routes from "tempo-routes";
 import { Toaster } from "./components/ui/toaster";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { CVProvider } from "@/contexts/CVContext";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -41,6 +43,7 @@ function AppRoutes() {
         <Route index element={<DashboardHome />} />
         <Route path="cv" element={<CVEditor />} />
         <Route path="cv/:id" element={<CVEditor />} />
+        <Route path="saved-cvs" element={<SavedCVs />} />
         <Route path="cover-letter" element={<CoverLetterEditor />} />
         <Route path="cover-letter/:id" element={<CoverLetterEditor />} />
         <Route path="profile" element={<UserProfile />} />
@@ -56,9 +59,11 @@ function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <AuthProvider>
-        <AppRoutes />
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-        <Toaster />
+        <CVProvider>
+          <AppRoutes />
+          {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+          <Toaster />
+        </CVProvider>
       </AuthProvider>
     </Suspense>
   );
