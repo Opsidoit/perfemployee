@@ -39,7 +39,7 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <div className="w-64 border-r bg-card p-4 hidden md:block">
         <div className="mb-8">
-          <Link to="/" className="flex items-center">
+          <Link to="/dashboard" className="flex items-center">
             <span className="flex my-1 px-1 py-1.5 justify-center items-end via-[0%] via-inherit from-[67%] from-[#353ec8] font-extrabold text-2xl leading-10 text-right tracking-wide font-sans container bg-[#NaNNaNNaN] bg-[#NaNNaNNaN] opacity-100 bg-inherit text-[#26cef3]">
               Perfemployee
             </span>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavbarProps {
   transparent?: boolean;
@@ -10,6 +11,8 @@ interface NavbarProps {
 const Navbar = ({ transparent = true }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +40,10 @@ const Navbar = ({ transparent = true }: NavbarProps) => {
     >
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center">
+        <Link
+          to={localStorage.getItem("token") ? "/dashboard" : "/"}
+          className="flex items-center"
+        >
           <span className="flex my-1 px-1 py-1.5 justify-center items-end via-[0%] via-inherit from-[67%] from-[#353ec8] font-extrabold text-4xl leading-10 text-right tracking-wide font-sans container bg-[#NaNNaNNaN] bg-[#NaNNaNNaN] opacity-100 bg-inherit text-[#26cef3]">
             Perfemployee
           </span>
