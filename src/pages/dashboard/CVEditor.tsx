@@ -276,6 +276,27 @@ const CVEditor = () => {
                 Your Professional Profile
               </h2>
               <div className="space-y-4">
+                <div className="mb-6 p-4 border rounded-md bg-blue-50">
+                  <label className="block text-sm font-medium mb-1 text-blue-700">
+                    Professional Summary
+                  </label>
+                  <textarea
+                    className="w-full p-2 border rounded-md h-24"
+                    placeholder="Write a brief summary of your professional background, skills, and career goals..."
+                    value={experienceEntries[0]?.summary || ""}
+                    onChange={(e) => {
+                      const updatedEntries = [...experienceEntries];
+                      if (updatedEntries[0]) {
+                        updatedEntries[0].summary = e.target.value;
+                        setExperienceEntries(updatedEntries);
+                      }
+                    }}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    This summary will appear at the top of your CV
+                  </p>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
