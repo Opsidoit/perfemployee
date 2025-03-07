@@ -72,6 +72,7 @@ const CVEditor = () => {
         setCity(cvData.city || "");
         setCountry(cvData.country || "");
         setSkills(cvData.skills.join(", "));
+        setCvSummary(cvData.summary || "");
 
         if (cvData.experiences && cvData.experiences.length > 0) {
           setExperienceEntries(cvData.experiences);
@@ -243,16 +244,17 @@ const CVEditor = () => {
     (_, i) => (new Date().getFullYear() - i).toString(),
   );
 
+  // Use a default title that can be overridden in the preview modal
   const cvData = {
     id,
-    title: `${firstName} ${lastName}'s CV`,
+    title: id ? `${firstName} ${lastName}'s CV` : "", // Empty title for new CVs will be set in the modal
     firstName,
     lastName,
     email,
     phone,
     city,
     country,
-    summary: cvSummary, // Add separate summary field
+    summary: cvSummary,
     skills: skills
       .split(",")
       .map((skill) => skill.trim())
@@ -335,11 +337,8 @@ const CVEditor = () => {
                   <textarea
                     className="w-full p-2 border rounded-md h-24"
                     placeholder="Write a brief summary of your professional background, skills, and career goals..."
-                    value={cvData.summary || ""}
-                    onChange={(e) => {
-                      // Store this in a separate field that doesn't affect job descriptions
-                      setCvSummary(e.target.value);
-                    }}
+                    value={cvSummary}
+                    onChange={(e) => setCvSummary(e.target.value)}
                   />
                   <p className="text-xs text-gray-500 mt-1">
                     This summary will appear at the top of your CV

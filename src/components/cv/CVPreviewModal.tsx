@@ -17,12 +17,15 @@ interface CVPreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   cvData: {
+    id?: string;
+    title?: string;
     firstName: string;
     lastName: string;
     email: string;
     phone: string;
     city: string;
     country: string;
+    summary?: string;
     skills: string[];
     experiences: {
       title: string;
@@ -90,21 +93,18 @@ const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
   };
 
   const handleSave = async () => {
-    if (showTitleInput) {
-      try {
-        setSaving(true);
-        await saveCV({
-          ...cvData,
-          title: cvTitle,
-        });
-        onClose();
-      } catch (error) {
-        console.error("Error saving CV:", error);
-      } finally {
-        setSaving(false);
-      }
-    } else {
-      setShowTitleInput(true);
+    try {
+      setSaving(true);
+      await saveCV({
+        ...cvData,
+        title: cvTitle,
+        summary: cvData.summary, // Make sure summary is included
+      });
+      onClose();
+    } catch (error) {
+      console.error("Error saving CV:", error);
+    } finally {
+      setSaving(false);
     }
   };
 

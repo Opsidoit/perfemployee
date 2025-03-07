@@ -19,11 +19,6 @@ const SavedCVs = () => {
     navigate(`/dashboard/cv/${id}`);
   };
 
-  const handleDownloadCV = (id: string) => {
-    alert(`Downloading CV with ID: ${id}`);
-    // In a real app, this would download the CV as a PDF
-  };
-
   const handleDeleteCV = async (id: string) => {
     if (confirm("Are you sure you want to delete this CV?")) {
       await deleteCV(id);
@@ -63,7 +58,9 @@ const SavedCVs = () => {
                   <h3 className="font-medium">{cv.title}</h3>
                   <p className="text-xs text-gray-500">
                     Last modified:{" "}
-                    {new Date(cv.updated_at || "").toLocaleDateString()}
+                    {cv.updated_at
+                      ? new Date(cv.updated_at).toLocaleDateString()
+                      : "N/A"}
                   </p>
                 </div>
               </div>
@@ -75,13 +72,6 @@ const SavedCVs = () => {
                     onClick={() => handleViewCV(cv.id || "")}
                   >
                     <Eye className="h-4 w-4 mr-1" /> View
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDownloadCV(cv.id || "")}
-                  >
-                    <Download className="h-4 w-4 mr-1" /> Download
                   </Button>
                   <Button
                     variant="outline"

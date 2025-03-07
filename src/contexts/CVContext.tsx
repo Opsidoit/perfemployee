@@ -13,6 +13,7 @@ interface CVData {
   city: string;
   country: string;
   skills: string[];
+  summary?: string;
   experiences: {
     title: string;
     summary: string;
@@ -74,7 +75,26 @@ export function CVProvider({ children }: { children: React.ReactNode }) {
 
       if (error) throw error;
 
-      setSavedCVs(data || []);
+      // Map database fields to our frontend model
+      const mappedData = (data || []).map((cv) => ({
+        id: cv.id,
+        title: cv.title,
+        firstName: cv.firstname || "",
+        lastName: cv.lastname || "",
+        email: cv.email || "",
+        phone: cv.phone || "",
+        city: cv.city || "",
+        country: cv.country || "",
+        skills: cv.skills || [],
+        summary: cv.summary || "",
+        experiences: cv.experiences || [],
+        education: cv.education || [],
+        extracurricular: cv.extracurricular || [],
+        created_at: cv.created_at,
+        updated_at: cv.updated_at,
+      }));
+
+      setSavedCVs(mappedData);
     } catch (error: any) {
       console.error("Error fetching CVs:", error);
       toast({
@@ -103,10 +123,21 @@ export function CVProvider({ children }: { children: React.ReactNode }) {
       const title =
         cvData.title || `${cvData.firstName} ${cvData.lastName}'s CV`;
 
+      // Map the CV data to match the database schema
       const cvToSave = {
-        ...cvData,
         title,
         user_id: user.id,
+        firstname: cvData.firstName,
+        lastname: cvData.lastName,
+        email: cvData.email,
+        phone: cvData.phone,
+        city: cvData.city,
+        country: cvData.country,
+        skills: cvData.skills,
+        summary: cvData.summary,
+        experiences: cvData.experiences,
+        education: cvData.education,
+        extracurricular: cvData.extracurricular,
         updated_at: new Date().toISOString(),
       };
 
@@ -193,7 +224,24 @@ export function CVProvider({ children }: { children: React.ReactNode }) {
 
       if (error) throw error;
 
-      return data;
+      // Map database fields back to our frontend model
+      return {
+        id: data.id,
+        title: data.title,
+        firstName: data.firstname || "",
+        lastName: data.lastname || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        city: data.city || "",
+        country: data.country || "",
+        skills: data.skills || [],
+        summary: data.summary || "",
+        experiences: data.experiences || [],
+        education: data.education || [],
+        extracurricular: data.extracurricular || [],
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+      };
     } catch (error: any) {
       console.error("Error fetching CV:", error);
       toast({

@@ -132,7 +132,6 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
             </h2>
             <p className="break-words whitespace-normal">
               {summary ||
-                experiences[0]?.summary ||
                 "Results-driven professional with a proven track record of success in fast-paced environments. Skilled in developing innovative solutions and optimizing processes to drive organizational growth. Committed to delivering high-quality results while maintaining strong attention to detail."}
             </p>
           </div>
