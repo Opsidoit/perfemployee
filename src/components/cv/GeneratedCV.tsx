@@ -46,7 +46,7 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
   summary,
 }) => {
   return (
-    <div className="bg-white p-6 max-w-4xl mx-auto shadow-md">
+    <div className="bg-white p-6 max-w-4xl mx-auto shadow-md overflow-hidden">
       {/* Header with sidebar layout */}
       <div className="flex flex-col md:flex-row">
         {/* Left sidebar with contact info */}
@@ -113,7 +113,7 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
               </h2>
               <ul className="list-disc pl-5 space-y-1">
                 {extracurricular.map((extra, index) => (
-                  <li key={index}>
+                  <li key={index} className="break-words whitespace-normal">
                     <span className="font-medium">{extra.activity}</span>
                     {extra.role && <div className="text-sm">{extra.role}</div>}
                   </li>
@@ -130,7 +130,7 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
             <h2 className="text-lg font-bold border-b-2 border-gray-300 mb-3 pb-1">
               SUMMARY
             </h2>
-            <p>
+            <p className="break-words whitespace-normal">
               {summary ||
                 experiences[0]?.summary ||
                 "Results-driven professional with a proven track record of success in fast-paced environments. Skilled in developing innovative solutions and optimizing processes to drive organizational growth. Committed to delivering high-quality results while maintaining strong attention to detail."}
@@ -153,11 +153,13 @@ const GeneratedCV: React.FC<GeneratedCVProps> = ({
                 </div>
                 <ul className="list-disc pl-5 space-y-1">
                   {exp.summary ? (
-                    exp.summary
-                      .split("\n")
-                      .map((line, i) => <li key={i}>{line.trim()}</li>)
+                    exp.summary.split("\n").map((line, i) => (
+                      <li key={i} className="break-words whitespace-normal">
+                        {line.trim()}
+                      </li>
+                    ))
                   ) : (
-                    <li>
+                    <li className="break-words whitespace-normal">
                       Responsible for key initiatives and project management
                     </li>
                   )}
