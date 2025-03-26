@@ -9,6 +9,7 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import CVEditor from "./pages/dashboard/CVEditor";
 import SavedCVs from "./pages/dashboard/SavedCVs";
 import CoverLetterEditor from "./pages/dashboard/CoverLetterEditor";
+import SavedCoverLetters from "./pages/dashboard/SavedCoverLetters";
 import UserProfile from "./pages/dashboard/UserProfile";
 import routes from "tempo-routes";
 import { Toaster } from "./components/ui/toaster";
@@ -46,6 +47,7 @@ function AppRoutes() {
         <Route path="saved-cvs" element={<SavedCVs />} />
         <Route path="cover-letter" element={<CoverLetterEditor />} />
         <Route path="cover-letter/:id" element={<CoverLetterEditor />} />
+        <Route path="saved-cover-letters" element={<SavedCoverLetters />} />
         <Route path="profile" element={<UserProfile />} />
       </Route>
 

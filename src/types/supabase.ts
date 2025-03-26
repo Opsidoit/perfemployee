@@ -9,6 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cover_letters: {
+        Row: {
+          company: string | null
+          content: string | null
+          created_at: string | null
+          id: string
+          key_skills: string | null
+          position: string | null
+          recipient: string | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          company?: string | null
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          key_skills?: string | null
+          position?: string | null
+          recipient?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          company?: string | null
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          key_skills?: string | null
+          position?: string | null
+          recipient?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       cvs: {
         Row: {
           city: string | null
@@ -23,6 +62,7 @@ export type Database = {
           lastname: string | null
           phone: string | null
           skills: Json | null
+          summary: string | null
           title: string
           updated_at: string | null
           user_id: string
@@ -40,6 +80,7 @@ export type Database = {
           lastname?: string | null
           phone?: string | null
           skills?: Json | null
+          summary?: string | null
           title: string
           updated_at?: string | null
           user_id: string
@@ -57,6 +98,7 @@ export type Database = {
           lastname?: string | null
           phone?: string | null
           skills?: Json | null
+          summary?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string

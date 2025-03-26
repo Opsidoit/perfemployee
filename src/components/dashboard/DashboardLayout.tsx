@@ -71,7 +71,18 @@ const DashboardLayout = () => {
                 icon={<FileEdit className="h-5 w-5" />}
                 label="Cover Letter"
                 to="/dashboard/cover-letter"
-                active={location.pathname.includes("/dashboard/cover-letter")}
+                active={
+                  location.pathname.includes("/dashboard/cover-letter") &&
+                  !location.pathname.includes("/dashboard/saved-cover-letters")
+                }
+              />
+              <SidebarItem
+                icon={<Save className="h-5 w-5" />}
+                label="Saved Cover Letters"
+                to="/dashboard/saved-cover-letters"
+                active={location.pathname.includes(
+                  "/dashboard/saved-cover-letters",
+                )}
               />
             </div>
           </div>
