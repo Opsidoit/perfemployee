@@ -208,6 +208,9 @@ John Doe`;
           <h1 className="text-2xl font-bold">Edit Cover Letter</h1>
         </div>
         <div className="flex space-x-2">
+          <Button onClick={saveCoverLetter} disabled={saving}>
+            <Save className="mr-2 h-4 w-4" /> {saving ? "Saving..." : "Save"}
+          </Button>
           <Button
             variant="outline"
             size="sm"
@@ -265,13 +268,6 @@ John Doe`;
             </CardContent>
           </Card>
         </div>
-      </div>
-
-      {/* Save button at the bottom */}
-      <div className="flex justify-center mt-4">
-        <Button className="px-6" onClick={saveCoverLetter} disabled={saving}>
-          <Save className="mr-2 h-4 w-4" /> {saving ? "Saving..." : "Save"}
-        </Button>
       </div>
     </div>
   );
