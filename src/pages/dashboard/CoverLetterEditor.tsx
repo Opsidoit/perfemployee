@@ -208,10 +208,20 @@ John Doe`;
           <h1 className="text-2xl font-bold">Edit Cover Letter</h1>
         </div>
         <div className="flex space-x-2">
-          <Button variant="outline" size="sm" onClick={exportToDocx}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={exportToDocx}
+            className="bg-black text-white hover:bg-black/90"
+          >
             <FileText className="mr-2 h-4 w-4" /> Download Word
           </Button>
-          <Button variant="outline" size="sm" onClick={exportToPdf}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={exportToPdf}
+            className="bg-black text-white hover:bg-black/90"
+          >
             <FileDown className="mr-2 h-4 w-4" /> Download PDF
           </Button>
         </div>
