@@ -208,7 +208,13 @@ John Doe`;
           <h1 className="text-2xl font-bold">Edit Cover Letter</h1>
         </div>
         <div className="flex space-x-2">
-          <Button onClick={saveCoverLetter} disabled={saving}>
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-black text-white hover:bg-black/90"
+            onClick={saveCoverLetter}
+            disabled={saving}
+          >
             <Save className="mr-2 h-4 w-4" /> {saving ? "Saving..." : "Save"}
           </Button>
           <Button
