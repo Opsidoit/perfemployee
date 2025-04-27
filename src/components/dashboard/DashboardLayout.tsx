@@ -98,12 +98,6 @@ const DashboardLayout = () => {
                 to="/dashboard/profile"
                 active={location.pathname === "/dashboard/profile"}
               />
-              <SidebarItem
-                icon={<Settings className="h-5 w-5" />}
-                label="Settings"
-                to="/dashboard/settings"
-                active={location.pathname === "/dashboard/settings"}
-              />
             </div>
           </div>
         </div>
