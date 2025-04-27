@@ -28,13 +28,20 @@ const UserProfile = () => {
   const fetchProfile = async () => {
     try {
       setLoading(true);
+      console.log("Fetching profile for user ID:", user.id);
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
         .eq("id", user.id)
         .single();
 
-      if (error) throw error;
+      if (error && error.code !== "PGRST116") {
+        // PGRST116 is the error code for no rows returned
+        console.error("Supabase error:", error);
+        throw error;
+      }
+
+      console.log("Profile data from Supabase:", data);
 
       if (data) {
         setProfile({
@@ -42,6 +49,18 @@ const UserProfile = () => {
           email: user.email || "",
           phone: data.phone || "",
         });
+      } else {
+        // If no profile exists, create one with the user metadata
+        console.log("No profile found, creating one with user metadata");
+        const { error: insertError } = await supabase.from("profiles").insert({
+          id: user.id,
+          full_name: user.user_metadata?.full_name || "",
+          email: user.email,
+        });
+
+        if (insertError) {
+          console.error("Error creating profile:", insertError);
+        }
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
