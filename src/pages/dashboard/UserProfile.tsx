@@ -38,8 +38,8 @@ const UserProfile = () => {
 
       if (data) {
         setProfile({
-          full_name: data.full_name || "",
-          email: user.email,
+          full_name: data.full_name || user?.user_metadata?.full_name || "",
+          email: user.email || "",
           phone: data.phone || "",
         });
       }
