@@ -42,7 +42,7 @@ const SignInPage = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="your.mail@example.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

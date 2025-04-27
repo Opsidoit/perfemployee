@@ -21,6 +21,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (user) {
+      // Immediately set profile with user data from auth context
+      setProfile({
+        full_name: user?.user_metadata?.full_name || "",
+        email: user?.email || "",
+      });
       fetchProfile();
     }
   }, [user]);
