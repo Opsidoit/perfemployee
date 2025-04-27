@@ -13,7 +13,6 @@ import {
   FileText,
   FileEdit,
   User,
-  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
@@ -133,12 +132,6 @@ const Sidebar = ({
       <div className="p-4 mt-auto">
         <Separator className="mb-4" />
         <TooltipProvider delayDuration={0}>
-          <NavItem
-            to="/dashboard/settings"
-            icon={<Settings className="h-5 w-5" />}
-            label="Settings"
-            isCollapsed={isCollapsed}
-          />
           <NavItem
             to="/signout"
             icon={<LogOut className="h-5 w-5" />}
