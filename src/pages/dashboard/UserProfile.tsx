@@ -156,19 +156,6 @@ const UserProfile = () => {
                 disabled
               />
             </div>
-
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <input
-                id="phone"
-                type="tel"
-                className="w-full p-2 border rounded-md mt-1"
-                value={profile.phone}
-                onChange={(e) =>
-                  setProfile({ ...profile, phone: e.target.value })
-                }
-              />
-            </div>
           </CardContent>
         </Card>
 
