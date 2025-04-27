@@ -16,7 +16,6 @@ const UserProfile = () => {
   const [profile, setProfile] = useState({
     full_name: "",
     email: "",
-    phone: "",
   });
 
   useEffect(() => {
@@ -52,7 +51,6 @@ const UserProfile = () => {
         setProfile({
           full_name: data.full_name || user?.user_metadata?.full_name || "",
           email: user.email || "",
-          phone: data.phone || "",
         });
       } else {
         // If no profile exists, create one with the user metadata
@@ -83,10 +81,14 @@ const UserProfile = () => {
     try {
       setSaving(true);
 
-      // Split full name into first and last name for display
-      const nameParts = profile.full_name.split(" ");
-      const firstName = nameParts[0] || "";
-      const lastName = nameParts.slice(1).join(" ") || "";
+      // Update user metadata as well to ensure consistency
+      const { error: metadataError } = await supabase.auth.updateUser({
+        data: { full_name: profile.full_name },
+      });
+
+      if (metadataError) {
+        console.error("Error updating user metadata:", metadataError);
+      }
 
       const { error } = await supabase
         .from("profiles")
