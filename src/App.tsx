@@ -4,6 +4,7 @@ import Home from "./components/home";
 import LandingPage from "./pages/LandingPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
+import PasswordResetPage from "./pages/PasswordResetPage";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import CVEditor from "./pages/dashboard/CVEditor";
@@ -32,6 +33,7 @@ function AppRoutes() {
       <Route path="/home" element={<Home />} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/reset-password" element={<PasswordResetPage />} />
 
       <Route
         path="/dashboard"

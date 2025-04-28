@@ -50,6 +50,7 @@ interface CVContextType {
 
 const CVContext = createContext<CVContextType | undefined>(undefined);
 
+// Convert to named function component with explicit export
 export function CVProvider({ children }: { children: React.ReactNode }) {
   const [savedCVs, setSavedCVs] = useState<CVData[]>([]);
   const [loading, setLoading] = useState(true);

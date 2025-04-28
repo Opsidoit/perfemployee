@@ -74,9 +74,11 @@ const SignInPage = () => {
                   Remember me
                 </Label>
               </div>
-              <Button variant="link" className="px-0 font-normal" size="sm">
-                Forgot password?
-              </Button>
+              <Link to="/reset-password">
+                <Button variant="link" className="px-0 font-normal" size="sm">
+                  Forgot password?
+                </Button>
+              </Link>
             </div>
             <Button className="w-full" type="submit" disabled={loading}>
               {loading ? (

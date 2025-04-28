@@ -10,10 +10,16 @@ interface AuthContextValue {
   signUp: (email: string, password: string, name: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  resetPassword: (
+    email: string,
+    newPassword?: string,
+    token?: string,
+  ) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
+// Convert to named function component with explicit export
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -169,8 +175,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const resetPassword = async (
+    email: string,
+    newPassword?: string,
+    token?: string,
+  ) => {
+    try {
+      setLoading(true);
+
+      if (newPassword && token) {
+        // Reset password with token
+        const { error } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
+
+        if (error) throw error;
+
+        toast({
+          title: "Password updated",
+          description: "Your password has been reset successfully.",
+        });
+      } else {
+        // Send password reset email
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+
+        if (error) throw error;
+
+        toast({
+          title: "Email sent",
+          description: "Check your email for the password reset link.",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to reset password",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, loading, signUp, signIn, signOut, resetPassword }}
+    >
       {children}
     </AuthContext.Provider>
   );
