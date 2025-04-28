@@ -30,9 +30,6 @@ const PasswordResetPage = () => {
   useEffect(() => {
     // Check if there's a reset token in the URL
     const hash = location.hash;
-    const searchParams = new URLSearchParams(location.search);
-    const code = searchParams.get("code");
-
     if (hash && hash.includes("type=recovery")) {
       // This is a password recovery flow from Supabase
       setResetToken("recovery");
@@ -42,36 +39,8 @@ const PasswordResetPage = () => {
       if (accessToken) {
         localStorage.setItem("sb-recovery-token", accessToken);
       }
-    } else if (code) {
-      // Handle the code parameter from email link
-      setResetToken("recovery");
-
-      // Exchange the code for a session
-      const exchangeCodeForSession = async () => {
-        try {
-          const { data, error } =
-            await supabase.auth.exchangeCodeForSession(code);
-          if (error) throw error;
-          if (data && data.session) {
-            // Session established, now user can reset password
-            toast({
-              title: "Authentication successful",
-              description: "You can now reset your password",
-            });
-          }
-        } catch (error) {
-          console.error("Error exchanging code for session:", error);
-          toast({
-            title: "Error",
-            description: "Invalid or expired reset link",
-            variant: "destructive",
-          });
-        }
-      };
-
-      exchangeCodeForSession();
     }
-  }, [location, toast]);
+  }, [location]);
 
   const handleSendResetEmail = async (e: React.FormEvent) => {
     e.preventDefault();
